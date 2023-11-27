@@ -26,7 +26,7 @@
         system = "x86_64-linux";
         specialArgs = inputs;
         modules = [
-          ./machines/vm/nixos/configuration.nix
+          ./machines/vm/nixos
           home-manager.nixosModules.home-manager
           {
             home-manager = {
@@ -38,7 +38,7 @@
               useUserPackages = true;
               users.vm = {
                 imports = [ 
-                  ./machines/vm/home-manager/home.nix
+                  ./machines/vm/home-manager
                 ];
               };
             };
@@ -48,7 +48,7 @@
     };
 
     homeConfigurations = {
-      vm = home-manager.lib.homeManagerConfiguration {
+      "vm@vm" = home-manager.lib.homeManagerConfiguration {
         pkgs = import nixpkgs {
           system = "x86_64-linux";
           # config.allowUnfree = true;
@@ -57,50 +57,8 @@
           inherit inputs;
           username = "vm"; 
         };
-        modules = [ ./machines/vm/home-manager/home.nix ];
+        modules = [ ./machines/vm/home-manager ];
       };
     };
   };
-  
-    # let
-    #   buildNixosConfig = { machine_name, system, username, extraModules ? [ ], ... }:
-    #     nixpkgs.lib.nixosSystem {
-    #       inherit system;
-    #       specialArgs = { inherit inputs system machine_name username; };
-    #       modules = [
-    #         ./machines/${machine_name}/nixos/configuration.nix
-    #         home-manager.nixosModules.home-manager
-    #         {
-    #           home-manager.useGlobalPkgs = true;
-    #           home-manager.useUserPackages = true;
-    #           home-manager.users.${username} = import ./machines/${machine_name}/home-manager/home.nix;
-    #         }
-    #       ] ++ extraModules;
-    #     };
-
-    # in
-    # {
-    #   nixosConfigurations =
-    #     {
-    #       vm = buildNixosConfig {
-    #         machine_name = "vm";
-    #         system = "x86_64-linux";
-    #         username = "vm";
-    #         extraModules = [ ];
-    #       };
-    #     };
-
-    #   homeConfigurations = {
-    #     vm = home-manager.lib.homeManagerConfiguration {
-    #       pkgs = import nixpkgs {
-    #         system = "x86_64-linux";
-    #         config.allowUnfree = true;
-    #       };
-    #       extraSpecialArgs = { inherit inputs; } // { username = "vm"; };
-    #       modules = [ ./machines/vm/home-manager/home.nix ];
-    #     };
-    #   };
-    # };
 }
-
-   
