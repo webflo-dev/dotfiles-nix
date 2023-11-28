@@ -45,6 +45,29 @@
           }
         ];
       };
+      xps13 = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = inputs;
+        modules = [
+          ./machines/xps13/nixos
+          home-manager.nixosModules.home-manager
+          {
+            home-manager = {
+              extraSpecialArgs = {
+                inherit inputs;
+                username = "florent";
+              };
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              users.vm = {
+                imports = [ 
+                  ./machines/xps13/home-manager
+                ];
+              };
+            };
+          }
+        ];
+      };
     };
 
     homeConfigurations = {
@@ -58,6 +81,16 @@
           username = "vm"; 
         };
         modules = [ ./machines/vm/home-manager ];
+      };
+       "florent@xps13" = home-manager.lib.homeManagerConfiguration {
+        pkgs = import nixpkgs {
+          system = "x86_64-linux";
+        };
+        extraSpecialArgs = { 
+          inherit inputs;
+          username = "florent"; 
+        };
+        modules = [ ./machines/xps13/home-manager ];
       };
     };
   };
