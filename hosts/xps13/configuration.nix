@@ -1,4 +1,4 @@
-{ config, pkgs, nixos-hardware, ...}:
+{ config, pkgs, nixos-hardware, hostname, ...}:
 
 {
   system.stateVersion = "23.05";
@@ -35,10 +35,8 @@
   };
 
   networking = {
-    hostName = "xps13";
-    useDHCP = lib.mkDefault true;
+    hostName = hostname;
     networkmanager.enable = true;
-    wireless.enable = true;
   };
 
   hardware = {
@@ -55,10 +53,12 @@
     };
   };
 
-  pkgs = import nixpkgs {
-    inherit system;
-    config.allowUnfree = true;
-  };
+#  pkgs = import nixpkgs {
+#    inherit system;
+#    config.allowUnfree = true;
+#  };
+
+  nixpkgs.config.allowUnfree = true;
 
   nix = {
     settings = {
@@ -90,6 +90,17 @@
     };
   };
 
+  users.users.${username} = {
+     isNormalUser = true;
+     extraGroups = [ "wheel" "networkmanager" "input" "audio" "video"  ];
+  };
+
+  environment.systemPackages = with pkgs; [
+    home-manager
+    git
+    neovim
+  ];
+
   # Print support
   services.printing.enable = true;
 
@@ -100,4 +111,5 @@
   hardware.bluetooth.enable = true;
   services.blueman.enable = true;
 
+ 
 }

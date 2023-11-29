@@ -20,25 +20,27 @@
 
 
   outputs = { nixpkgs, home-manager, ... } @ inputs:
+  let 
+    hostname = "xps13";
+    system = "x86_64-linux";
+    username = "florent";
+  in 
   {
     nixosConfigurations = {
-      xps13 = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = inputs;
+      "${hostname}" = nixpkgs.lib.nixosSystem {
+        inherit system;
+        specialArgs = { inherit inputs system hostname username;};
         modules = [
-          ./hosts/xps13/configuration.nix
+          ./hosts/${hostname}/configuration.nix
           home-manager.nixosModules.home-manager
           {
             home-manager = {
-              extraSpecialArgs = {
-                inherit inputs;
-                username = "florent";
-              };
+              extraSpecialArgs = { inherit inputs username; };
               useGlobalPkgs = true;
               useUserPackages = true;
-              users."xps13" = {
+              users.${username} = {
                 imports = [ 
-                  ./hosts/xps13/home.nix
+                  ./hosts/${hostname}/home.nix
                 ];
               };
             };
@@ -47,17 +49,12 @@
       };
     };
 
-    homeConfigurations = {
-       "florent@xps13" = home-manager.lib.homeManagerConfiguration {
-        pkgs = import nixpkgs {
-          system = "x86_64-linux";
-        };
-        extraSpecialArgs = { 
-          inherit inputs;
-          username = "florent"; 
-        };
-        modules = [ ./hosts/xps13/home.nix ];
-      };
-    };
+   homeConfigurations = {
+      "${username}@${hostname}" = home-manager.lib.homeManagerConfiguration {
+       pkgs = import nixpkgs { inherit system; };
+       extraSpecialArgs = { inherit inputs system hostname username; };
+       modules = [ ./hosts/${hostname}/home.nix ];
+     };
+   };
   };
 }
