@@ -1,4 +1,4 @@
-{ config, pkgs, nixos-hardware, hostname, ...}:
+{ config, pkgs, nixos-hardware, hostname, username, ...}:
 
 {
   system.stateVersion = "23.05";
