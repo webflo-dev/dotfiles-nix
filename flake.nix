@@ -22,34 +22,11 @@
   outputs = { nixpkgs, home-manager, ... } @ inputs:
   {
     nixosConfigurations = {
-      vm = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = inputs;
-        modules = [
-          ./machines/vm/nixos
-          home-manager.nixosModules.home-manager
-          {
-            home-manager = {
-              extraSpecialArgs = {
-                inherit inputs;
-                username = "vm";
-              };
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              users.vm = {
-                imports = [ 
-                  ./machines/vm/home-manager
-                ];
-              };
-            };
-          }
-        ];
-      };
       xps13 = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = inputs;
         modules = [
-          ./machines/xps13/nixos
+          ./hosts/xps13/configuration.nix
           home-manager.nixosModules.home-manager
           {
             home-manager = {
@@ -59,9 +36,9 @@
               };
               useGlobalPkgs = true;
               useUserPackages = true;
-              users.vm = {
+              users."xps13" = {
                 imports = [ 
-                  ./machines/xps13/home-manager
+                  ./hosts/xps13/home.nix
                 ];
               };
             };
@@ -71,17 +48,6 @@
     };
 
     homeConfigurations = {
-      "vm@vm" = home-manager.lib.homeManagerConfiguration {
-        pkgs = import nixpkgs {
-          system = "x86_64-linux";
-          # config.allowUnfree = true;
-        };
-        extraSpecialArgs = { 
-          inherit inputs;
-          username = "vm"; 
-        };
-        modules = [ ./machines/vm/home-manager ];
-      };
        "florent@xps13" = home-manager.lib.homeManagerConfiguration {
         pkgs = import nixpkgs {
           system = "x86_64-linux";
@@ -90,7 +56,7 @@
           inherit inputs;
           username = "florent"; 
         };
-        modules = [ ./machines/xps13/home-manager ];
+        modules = [ ./hosts/xps13/home.nix ];
       };
     };
   };

@@ -14,13 +14,13 @@ From live installation
 
 ## Step 2: formatting partitions
 
-`/dev/sda1` => boot partition
-`/dev/sda2` => NixOS partition
+`/dev/sda1` or `/dev/nvme0n1p1` => boot partition
+`/dev/sda2` or `/dev/nvme0n1p2` => NixOS partition
 
 ```
-sudo mkfs.fat -F 32 /dev/sda1
-sudo fatlabel /dev/sda1 BOOT
-sudo mkfs.ext4 /dev/sda2 -L NIXOS
+sudo mkfs.fat -F 32 /dev/nvme0n1p1
+sudo fatlabel /dev/nvme0n1p1 NIXBOOT
+sudo mkfs.ext4 /dev/nvme0n1p2 -L NIXOS
 ```
 
 ## Step 3: mounting partitions
@@ -28,7 +28,7 @@ sudo mkfs.ext4 /dev/sda2 -L NIXOS
 ```
 sudo mount /dev/disk/by-label/NIXOS /mnt
 sudo mkdir /mnt/boot
-sudo mount /dev/disk/by-label/BOOT /mnt/boot
+sudo mount /dev/disk/by-label/NIXBOOT /mnt/boot
 ```
 
 ## Step 4: generate actual configuration
