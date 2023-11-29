@@ -39,7 +39,7 @@
     useDHCP = lib.mkDefault true;
     networkmanager.enable = true;
     wireless.enable = true;
-  }
+  };
 
   hardware = {
     opengl = {
