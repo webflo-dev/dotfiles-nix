@@ -1,4 +1,4 @@
-{ pkgs, username, hostname ... }: {
+{ pkgs, username, hostname, ... }: {
   home.stateVersion = "23.05";
 
   programs.home-manager.enable = true;

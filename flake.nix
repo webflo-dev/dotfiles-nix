@@ -27,6 +27,7 @@
         specialArgs = { inherit inputs system hostname username;};
         modules = [
           ./hosts/${hostname}/configuration.nix
+          nixos-hardware.nixosModules.dell-xps-13-9300
           home-manager.nixosModules.home-manager
           {
             home-manager = {
