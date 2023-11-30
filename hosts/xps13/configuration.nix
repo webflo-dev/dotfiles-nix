@@ -5,7 +5,6 @@
 
   imports = [
     ./hardware-configuration.nix
-     nixos-hardware.nixosModules.dell-xps-13-9300
   ];
 
   boot = {
