@@ -1,11 +1,18 @@
-{ pkgs, inputs, ... }:
+{ pkgs, home, inputs, ... }:
 let
   username = "florent";
 in
 {
   imports = [
-    ./hyprland.nix
-    ./ags.nix
+    ./ags
+    ./fonts
+    ./git
+    ./gtk
+    ./hyprland
+    ./kitty
+    ./neofetch
+    ./pulsemixer
+    ./wezterm
   ];
 
   programs.home-manager.enable = true;
@@ -16,36 +23,43 @@ in
     homeDirectory = "/home/${username}";
     packages = with pkgs; [
       # CLI
-      bat
       croc
-      gitui
-      imv
       inotify-tools
       lnav
-      neofetch
-      starship
-      wezterm
       zsh
-
 
       ### GUI
       font-manager
-      kitty
       vscode
       microsoft-edge
-      sniffnet
       spotify
-      xfce.thunar
-      xfce.thunar-archive-plugin
-      xfce.thunar-volman
+
+      ### Security
+      polkit_gnome
+      gnome.gnome-keyring
     ];
   };
 
-  xdg.configFile."git".source = ./git;
-  xdg.configFile."kitty".source = ./kitty;
-  xdg.configFile."neofetch".source = ./neofetch;
+  programs.bat.enable = true;
+  programs.gitui.enable = true;
+  programs.imv.enable = true;
+  programs.sniffnet.enable = true;
+
+  programs.thunar = {
+    enable = true;
+    plugins = with pkgs.xfce; [
+      thunar-archive-plugin
+      thunar-volman
+    ];
+  };
+
+
+  services.gnome.gnome-keyring.enable = true;
+
+
+
   xdg.configFile."nvim".source = ./nvim;
-  xdg.configFile."wezterm".source = ./wezterm;
+
   xdg.configFile."zsh".source = ./zsh;
 
   home.file."${home.homeDirectory}/.local/bin".source = ./local-bin;

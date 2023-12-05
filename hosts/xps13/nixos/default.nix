@@ -8,6 +8,7 @@ in
 
   imports = [
     ./hardware-configuration.nix
+    ./fingerprint.nix
     ./hyprland.nix
     ./pipewire.nix
   ];

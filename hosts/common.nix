@@ -52,6 +52,7 @@
     neovim
     ranger
     ripgrep
+    starship
     unzip
   ];
 }
