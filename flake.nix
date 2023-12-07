@@ -1,56 +1,58 @@
 {
-  description = "home manager and NixOS configuration (webflo edition)";
+  description = "NixOS & Home manager (webflo edition)";
 
   inputs = {
 
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
+    # nixpkgs.url = "github:nixos/nixpkgs";
+    nixpkgs.url = "github:nixos/nixpkgs/release-23.11";
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-23.05";
+      # url = "github:nix-community/home-manager";
+      url = "github:nix-community/home-manager/release-23.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nixos-hardware.url = "github:nixos/nixos-hardware/master";
+    nixos-hardware.url = "github:nixos/nixos-hardware";
+
+    hyprland.url = "github:hyprwm/Hyprland";
+    ags.url = "github:Aylur/ags";
   };
 
 
-  outputs = { nixpkgs, home-manager, nixos-hardware,  ... } @ inputs:
-  let 
-    hostname = "xps13";
-    system = "x86_64-linux";
-    username = "florent";
-  in 
-  {
-    nixosConfigurations = {
-      "${hostname}" = nixpkgs.lib.nixosSystem {
-        inherit system;
-        specialArgs = { inherit inputs system hostname username;};
-        modules = [
-          ./hosts/${hostname}/configuration.nix
-          nixos-hardware.nixosModules.dell-xps-13-9300
-          home-manager.nixosModules.home-manager
-          {
-            home-manager = {
-              extraSpecialArgs = { inherit inputs username; };
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              users.${username} = {
-                imports = [ 
-                  ./hosts/${hostname}/home.nix
-                ];
-              };
-            };
-          }
-        ];
+  outputs = { nixpkgs, home-manager, nixos-hardware, hyprland, ... } @ inputs:
+    let
+      defaultHomeManagerModules = [
+        home-manager.nixosModules.home-manager
+        {
+          home-manager.extraSpecialArgs = { inherit inputs; };
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+        }
+      ];
+    in
+    {
+      nixosConfigurations = {
+        xps13 = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = { inherit inputs; };
+          modules =
+            defaultHomeManagerModules
+            ++ [
+              ./hosts/common.nix
+              nixos-hardware.nixosModules.dell-xps-13-9300
+              ./hosts/xps13/nixos
+              { home-manager.users.florent = import ./hosts/xps13/home-manager; }
+            ];
+        };
       };
-    };
 
-   homeConfigurations = {
-      "${username}@${hostname}" = home-manager.lib.homeManagerConfiguration {
-       pkgs = import nixpkgs { inherit system; };
-       extraSpecialArgs = { inherit inputs system hostname username; };
-       modules = [ ./hosts/${hostname}/home.nix ];
-     };
-   };
-  };
+      homeConfigurations = {
+        "florent@xps13" = home-manager.lib.homeManagerConfiguration {
+          pkgs = import nixpkgs { system = "x86_64-linux"; };
+          extraSpecialArgs = { inherit inputs; };
+          modules = [ ./hosts/xps13/home-manager ];
+        };
+      };
+
+    };
 }
