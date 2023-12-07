@@ -1,4 +1,4 @@
-{ pkgs, home, ... }:
+{ config, pkgs, ... }:
 {
 
   home.packages = with pkgs; [
@@ -6,7 +6,7 @@
     gtk4
   ];
 
-  programs.gtk = {
+  gtk = {
     enable = true;
 
     font = {
@@ -31,9 +31,9 @@
 
     gtk3 = {
       bookmarks = [
-        "file://${home.homeDirectory}/Pictures/Screenshots"
-        "file://${home.homeDirectory}/Videos/Recordings"
-        "file://${home.homeDirectory}/Downloads"
+        "file://${config.home.homeDirectory}/Pictures/Screenshots"
+        "file://${config.home.homeDirectory}/Videos/Recordings"
+        "file://${config.home.homeDirectory}/Downloads"
       ];
       extraConfig = {
         gtk-application-prefer-dark-theme = 1;
@@ -51,8 +51,5 @@
 
     };
   };
-
-  home.pointerCursor.gtk.enable = true;
-
 }
 

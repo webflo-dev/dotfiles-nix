@@ -4,6 +4,7 @@
   imports = [
     inputs.home-manager.nixosModules.default
     ./locales.nix
+    ./fonts.nix
   ];
 
 
@@ -34,7 +35,7 @@
     gc = {
       automatic = true;
       dates = "weekly";
-      options = "--delete-generation +20";
+      options = "--delete-generation +7";
       # options = "--delete-older-than 7";
     };
   };

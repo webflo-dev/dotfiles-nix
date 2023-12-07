@@ -1,11 +1,5 @@
 { pkgs, ... }:
 {
-  home.packages = [
-    pkgs.kitty
-  ];
-
-  # xdg.configFile."kitty".source = ./src;
-
   programs.kitty = {
     enable = true;
 
@@ -27,11 +21,11 @@
 
       input_delay = 0;
       repaint_delay = 0;
-      sync_to_monitor = "yes";
+      sync_to_monitor = true;
 
       # startup_session work.ini
 
-      clear_all_shortcuts = "yes";
+      clear_all_shortcuts = true;
 
       # THEME
       # background_opacity 0.8

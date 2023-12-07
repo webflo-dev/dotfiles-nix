@@ -1,5 +1,5 @@
 {
-  description = "home manager and NixOS configuration (webflo edition)";
+  description = "NixOS & Home manager (webflo edition)";
 
   inputs = {
 
@@ -21,16 +21,13 @@
 
   outputs = { nixpkgs, home-manager, nixos-hardware, hyprland, ... } @ inputs:
     let
-      defaultModules = [
+      defaultHomeManagerModules = [
         home-manager.nixosModules.home-manager
         {
-          home-manager = {
-            extraSpecialArgs = { inherit inputs; };
-            useGlobalPkgs = true;
-            useUserPackages = true;
-          };
+          home-manager.extraSpecialArgs = { inherit inputs; };
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
         }
-        ./hosts/common.nix
       ];
     in
     {
@@ -38,23 +35,22 @@
         xps13 = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = { inherit inputs; };
-          modules = defaultModules ++ [
-            nixos-hardware.nixosModules.dell-xps-13-9300
-            ./hosts/xps13/nixos
-            { home-manager.users.florent = import ./hosts/xps13/home-manager; }
-          ];
+          modules =
+            defaultHomeManagerModules
+            ++ [
+              ./hosts/common.nix
+              nixos-hardware.nixosModules.dell-xps-13-9300
+              ./hosts/xps13/nixos
+              { home-manager.users.florent = import ./hosts/xps13/home-manager; }
+            ];
         };
       };
 
       homeConfigurations = {
         "florent@xps13" = home-manager.lib.homeManagerConfiguration {
-          pkgs = import nixpkgs {
-            system = "x86_64-linux";
-          };
+          pkgs = import nixpkgs { system = "x86_64-linux"; };
           extraSpecialArgs = { inherit inputs; };
-          modules = [
-            ./hosts/xps13/home-manager
-          ];
+          modules = [ ./hosts/xps13/home-manager ];
         };
       };
 

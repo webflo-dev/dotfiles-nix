@@ -1,28 +1,28 @@
 local wezterm = require("wezterm")
 
-wezterm.on("gui-startup", function()
-	local frontend_tab, frontend_pane, window = wezterm.mux.spawn_window({
-		workspace = "work",
-		cwd = wezterm.home_dir .. "/dev/work/frontend",
-	})
-	frontend_tab:set_title("frontend")
-	frontend_pane:send_text("nps\n")
+-- wezterm.on("gui-startup", function()
+-- 	local frontend_tab, frontend_pane, window = wezterm.mux.spawn_window({
+-- 		workspace = "work",
+-- 		cwd = wezterm.home_dir .. "/dev/work/frontend",
+-- 	})
+-- 	frontend_tab:set_title("frontend")
+-- 	frontend_pane:send_text("nps\n")
 
-	local backend_tab, backend_pane = window:spawn_tab({
-		cwd = wezterm.home_dir .. "/dev/work/backend",
-	})
-	backend_tab:set_title("backend")
-	backend_pane:send_text('ENABLE_TYPEORM_MIGRATION=false nps "start.app"\n')
+-- 	local backend_tab, backend_pane = window:spawn_tab({
+-- 		cwd = wezterm.home_dir .. "/dev/work/backend",
+-- 	})
+-- 	backend_tab:set_title("backend")
+-- 	backend_pane:send_text('ENABLE_TYPEORM_MIGRATION=false nps "start.app"\n')
 
-	wezterm.mux.spawn_window({})
+-- 	wezterm.mux.spawn_window({})
 
-	-- wezterm.mux.set_active_workspace("work")
-end)
+-- 	-- wezterm.mux.set_active_workspace("work")
+-- end)
 
-wezterm.on("mux-startup", function()
-	local tab, pane, window = wezterm.mux.spawn_window({})
-	pane:split({ direction = "Top" })
-end)
+-- wezterm.on("mux-startup", function()
+-- 	local tab, pane, window = wezterm.mux.spawn_window({})
+-- 	pane:split({ direction = "Top" })
+-- end)
 
 local config = {
 	font = require("wezterm").font("monospace"),

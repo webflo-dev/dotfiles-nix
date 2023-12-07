@@ -1,39 +1,11 @@
 { pkgs, ... }:
 {
-  fonts = {
-    packages = with pkgs; [
-      noto-fonts-color-emoji
-      fira-code
-      monaspace
-      (nerdfonts.override {
-        fonts = [ "Symbols" ];
-      })
-    ];
-    fontconfig = {
-      enable = true;
-      hinting = {
-        enable = true;
-        autohint = false;
-        style = "hintslight";
-        subpixel = {
-          rgba = "rgb";
-          lcdfilter = "default";
-        };
-      };
-      antialias = true;
+  fonts.fontconfig.enable = true;
 
-      defaultFonts = {
-        # serif = [ "Luciole" ];
-        # sansSerif = [ "Luciole" ];
-        # monospace = [ "Cartograph CF" ];
-        serif = [ "Luciole" "Noto Color Emoji" "Symbols Nerd Font" ];
-        sansSerif = [ "Luciole" "Noto Color Emoji" "Symbols Nerd Font" ];
-        monospace = [ "Fira Code" "Noto Color Emoji" "Symbols Nerd Font" ];
-        emoji = [ "Noto Color Emoji" ];
-      };
-    };
-  };
+  # xdg.dataFile."fonts".source = ./src;
 
-  xdg.dataFile."fonts".source = ./src;
+  xdg.dataFile."fonts/Luciole".source = ./src/Luciole;
+  xdg.dataFile."fonts/Martian-Mono-1.0.0".source = ./src/Martian-Mono-1.0.0;
+  xdg.dataFile."fonts/smoke-test.sh".source = ./src/smoke-test.sh;
 
 }

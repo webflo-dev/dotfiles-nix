@@ -1,4 +1,4 @@
-{ pkgs, home, inputs, ... }:
+{ pkgs, inputs, ... }:
 let
   username = "florent";
 in
@@ -27,6 +27,7 @@ in
       inotify-tools
       lnav
       zsh
+      sniffnet
 
       ### GUI
       font-manager
@@ -43,26 +44,12 @@ in
   programs.bat.enable = true;
   programs.gitui.enable = true;
   programs.imv.enable = true;
-  programs.sniffnet.enable = true;
-
-  programs.thunar = {
-    enable = true;
-    plugins = with pkgs.xfce; [
-      thunar-archive-plugin
-      thunar-volman
-    ];
-  };
-
-
-  services.gnome.gnome-keyring.enable = true;
-
-
 
   xdg.configFile."nvim".source = ./nvim;
 
   xdg.configFile."zsh".source = ./zsh;
 
-  home.file."${home.homeDirectory}/.local/bin".source = ./local-bin;
+  home.file.".local/bin".source = ./local-bin;
 
 }
 
