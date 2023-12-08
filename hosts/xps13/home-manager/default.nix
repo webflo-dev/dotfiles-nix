@@ -5,6 +5,7 @@ in
 {
   imports = [
     ./ags
+    ./direnv
     ./fonts
     ./git
     ./gtk
