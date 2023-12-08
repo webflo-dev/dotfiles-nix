@@ -35,6 +35,7 @@ in
       inotify-tools
       lnav
       sniffnet
+      networkmanagerapplet
 
       ### GUI
       font-manager
