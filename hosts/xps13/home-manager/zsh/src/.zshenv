@@ -88,6 +88,3 @@ export WORDCHARS='*?[]~=&;!#$%^(){}<>'
 export HISTSIZE=5000
 export SAVEHIST=5000
 export HISTORY_IGNORE="(cd|ranger|r|exit|:q|kill|nvim)"
-
-export DOTDROP_CONFIG=$HOME/.dotfiles/config.yaml
-

@@ -47,8 +47,12 @@ in
   users.users.${username} = {
     isNormalUser = true;
     extraGroups = [ "wheel" "networkmanager" "input" "audio" "video" ];
+    shell = pkgs.zsh;
   };
-
+  programs.zsh = {
+    enable = true;
+    shellInit = '' export ZDOTDIR=$HOME/.config/zsh '';
+  };
 
   environment.systemPackages = with pkgs; [
     inotify-tools

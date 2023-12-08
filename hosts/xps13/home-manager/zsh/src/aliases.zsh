@@ -1,9 +1,7 @@
-#!/usr/bin/env zsh
-
 alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
-alias -- -="cd -"
+alias -- ="cd -"
 
 alias grep="grep --color=auto"
 alias sgrep='grep -R -n -H -C 5 --exclude-dir={.git,.svn,CVS} '
