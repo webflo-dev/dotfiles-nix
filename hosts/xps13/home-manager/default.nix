@@ -10,9 +10,13 @@ in
     ./gtk
     ./hyprland
     ./kitty
+    ./mime-apps
     ./neofetch
     ./pulsemixer
+    ./ranger
     ./wezterm
+    ./xdg
+    ./zsh
   ];
 
   programs.home-manager.enable = true;
@@ -23,33 +27,32 @@ in
     homeDirectory = "/home/${username}";
     packages = with pkgs; [
       # CLI
+      bat
       croc
+      gitui
+      imv
       inotify-tools
       lnav
-      zsh
       sniffnet
 
       ### GUI
       font-manager
-      vscode
       microsoft-edge
       spotify
+      vscode
 
       ### Security
-      polkit_gnome
       gnome.gnome-keyring
+      polkit_gnome
     ];
   };
 
-  programs.bat.enable = true;
-  programs.gitui.enable = true;
-  programs.imv.enable = true;
-
   # xdg.configFile."nvim".source = ./nvim;
 
-  # :xdg.configFile."zsh".source = ./zsh;
-
   home.file.".local/bin".source = ./local-bin;
+  home.sessionPath = [
+    "$HOME/.local/bin"
+  ];
 
 }
 

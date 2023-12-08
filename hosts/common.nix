@@ -51,9 +51,7 @@
     git
     home-manager
     neovim
-    ranger
     ripgrep
-    starship
     unzip
   ];
 }
