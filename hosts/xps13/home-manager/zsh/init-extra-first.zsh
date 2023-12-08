@@ -1,6 +1,3 @@
-# Ensure path arrays do not contain duplicates.
-typeset -gU cdpath fpath path
-
 unsetopt  beep
 setopt    extended_glob
 # directories
@@ -43,10 +40,9 @@ setopt    interactivecomments  # recognize comments
 #setopt rc_quotes
 
 
-
-autoload -U compaudit compinit zrecompile
-zstyle ':completion:*' menu select
-zmodload zsh/complist
-compinit
-_comp_options+=(globdots)		# Include hidden files.
-zmodload -i zsh/complist
+# autoload -U compaudit compinit zrecompile
+# zstyle ':completion:*' menu select
+# zmodload zsh/complist
+# compinit
+# _comp_options+=(globdots)		# Include hidden files.
+# zmodload -i zsh/complist

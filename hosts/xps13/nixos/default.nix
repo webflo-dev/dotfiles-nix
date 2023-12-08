@@ -44,19 +44,21 @@ in
   };
 
 
+  environment.systemPackages = with pkgs; [
+    inotify-tools
+  ];
+
+
   users.users.${username} = {
     isNormalUser = true;
     extraGroups = [ "wheel" "networkmanager" "input" "audio" "video" ];
     shell = pkgs.zsh;
   };
+
   programs.zsh = {
     enable = true;
-    shellInit = '' export ZDOTDIR=$HOME/.config/zsh '';
+    # shellInit = '' export ZDOTDIR=$HOME/.config/zsh '';
   };
-
-  environment.systemPackages = with pkgs; [
-    inotify-tools
-  ];
 
 
   # Print support
@@ -77,6 +79,10 @@ in
       thunar-volman
     ];
   };
+
+
+
+
 
   services.gnome.gnome-keyring.enable = true;
 

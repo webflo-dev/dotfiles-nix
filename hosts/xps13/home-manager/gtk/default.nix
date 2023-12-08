@@ -4,6 +4,7 @@
   home.packages = with pkgs; [
     gtk3
     gtk4
+    papirus-icon-theme
   ];
 
   gtk = {
