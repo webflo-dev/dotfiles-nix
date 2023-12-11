@@ -11,8 +11,13 @@ in
     ./fingerprint.nix
     ./hyprland.nix
     ./pipewire.nix
+    ./docker.nix
+    # ./print.nix
   ];
 
+  boot.extraModulePackages = with config.boot.kernelPackages; [
+    v4l2loopback # screen sharing
+  ];
 
   security = {
     tpm2 = {
@@ -46,12 +51,20 @@ in
 
   environment.systemPackages = with pkgs; [
     inotify-tools
+    networkmanagerapplet
   ];
 
 
   users.users.${username} = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" "input" "audio" "video" ];
+    extraGroups = [
+      "wheel"
+      "networkmanager"
+      "input"
+      "audio"
+      "video"
+      "docker"
+    ];
     shell = pkgs.zsh;
   };
 
@@ -61,8 +74,6 @@ in
   };
 
 
-  # Print support
-  services.printing.enable = true;
 
   # Touchpad support
   services.xserver.libinput.enable = true;

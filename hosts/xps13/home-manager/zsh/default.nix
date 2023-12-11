@@ -31,42 +31,16 @@
         size = 10000;
       };
 
+      envExtra = builtins.readFile ./env-extra.zsh;
+
       initExtraFirst = builtins.readFile ./init-extra-first.zsh;
 
       initExtra = builtins.readFile ./init-extra.zsh;
-
-      sessionVariables = {
-        MANPAGER = "nvim +Man!";
-        PAGER = "bat -p";
-
-        TERMINAL = "kitty";
-        BROWSER = "microsoft-edge-stable";
-        VISUAL = "nvim";
-        EDITOR = "nvim";
-
-        LESS = "-i -M -R -S -z-4";
-        LESSHISTFILE = "/dev/null";
-        LESS_TERMCAP_md = "$'\e[01;97m";
-        LESS_TERMCAP_so = "$'\e[00;47;30m";
-        LESS_TERMCAP_us = "$'\e[04;97m";
-        LESS_TERMCAP_me = "$'\e[0m";
-        LESS_TERMCAP_se = "$'\e[0m";
-        LESS_TERMCAP_ue = "$'\e[0m";
-
-        WORDCHARS = "*?[]~=&;!#$%^(){}<>";
-
-        ZSH_AUTOSUGGEST_STRATEGY = "(history completion)";
-        ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE = 50;
-        # ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#808080"
-        ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE = "fg=#626861";
-
-      };
 
       shellAliases = {
         ".." = "cd ..";
         "..." = "cd ../..";
         "...." = "cd ../../..";
-        "--" = "cd -";
 
         grep = "grep --color=auto";
         sgrep = "grep -R -n -H -C 5 --exclude-dir={.git,.svn,CVS}";
@@ -74,7 +48,7 @@
         egrep = "egrep --color=auto";
         less = "less -R";
 
-        rm = "rm - i";
+        rm = "rm -i";
         cp = "cp -i";
         mv = "mv - i";
         mkdir = "mkdir -p";
@@ -115,7 +89,13 @@
         UUID = "$(uuidgen | tr -d \\n)";
       };
 
-      plugins = [ ];
+      plugins = [
+        {
+          name = "zsh-nix-shell";
+          file = "nix-shell.plugin.zsh";
+          src = "${pkgs.zsh-nix-shell}/share/zsh-nix-shell";
+        }
+      ];
 
     };
 

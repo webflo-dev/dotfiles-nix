@@ -19,7 +19,7 @@
       };
       subpixel = {
         rgba = "rgb";
-	lcdfilter = "default";
+        lcdfilter = "default";
       };
 
       defaultFonts = {
@@ -31,6 +31,20 @@
         monospace = [ "Fira Code" "Noto Color Emoji" "Symbols Nerd Font" ];
         emoji = [ "Noto Color Emoji" ];
       };
+      localConf = /* xml */ ''
+        <?xml version="1.0" encoding="UTF-8"?>
+        <!DOCTYPE fontconfig SYSTEM "urn:fontconfig:fonts.dtd">
+        <fontconfig>
+          <alias binding="strong">
+            <family>system-ui</family>
+            <prefer>
+              <family>Luciole</family>
+              <family>Noto Color Emoji</family>
+              <family>Symbols Nerd Font</family>
+            </prefer>
+          </alias>
+        </fontconfig>
+      '';
     };
   };
 
