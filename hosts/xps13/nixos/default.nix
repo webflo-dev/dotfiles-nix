@@ -63,16 +63,11 @@ in
       "input"
       "audio"
       "video"
-      "docker"
     ];
     shell = pkgs.zsh;
   };
 
-  programs.zsh = {
-    enable = true;
-    # shellInit = '' export ZDOTDIR=$HOME/.config/zsh '';
-  };
-
+  programs.zsh.enable = true;
 
 
   # Touchpad support
@@ -90,11 +85,16 @@ in
       thunar-volman
     ];
   };
-
-
-
-
+  services.gvfs.enable = true;
 
   services.gnome.gnome-keyring.enable = true;
 
-}
+  security.pam.loginLimits = [
+    {
+      domain = "florent";
+      type = "soft";
+      item = "nofile";
+      value = "8192";
+    }
+  ];
+  }

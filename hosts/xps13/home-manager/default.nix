@@ -18,6 +18,7 @@ in
     ./wezterm
     ./xdg
     ./zsh
+    ./work
   ];
 
   programs.home-manager.enable = true;
