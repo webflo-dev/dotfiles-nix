@@ -5,6 +5,7 @@
     inputs.home-manager.nixosModules.default
     ./locales.nix
     ./fonts.nix
+    ./agenix.nix
   ];
 
 

@@ -16,6 +16,11 @@
 
     hyprland.url = "github:hyprwm/Hyprland";
     ags.url = "github:Aylur/ags";
+
+    agenix = {
+      url = "github:ryantm/agenix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
 

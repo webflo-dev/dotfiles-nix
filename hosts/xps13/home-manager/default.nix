@@ -38,6 +38,10 @@ in
       sniffnet
       networkmanagerapplet
 
+      ### dev
+      nixd
+      nixpkgs-fmt
+
       ### GUI
       font-manager
       microsoft-edge
