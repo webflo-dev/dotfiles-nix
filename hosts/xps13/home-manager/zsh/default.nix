@@ -50,7 +50,7 @@
 
         rm = "rm -i";
         cp = "cp -i";
-        mv = "mv - i";
+        mv = "mv -i";
         mkdir = "mkdir -p";
 
 
@@ -64,7 +64,6 @@
         la = "ls";
         l = "ls";
 
-        # "path" = "echo - e ${PATH//:/\\n}";
         path = "echo -e \${PATH//:/\\n}";
 
         ssh-add-keys = "eval '$(ssh-agent -s)' && ssh-add";
@@ -73,7 +72,7 @@
         logout = "loginctl terminate-session self";
         poweroff = "systemctl poweroff";
 
-        words = "rg - -pretty - -with-filename - -hidden - -follow - g '!.git'";
+        words = "rg --pretty --with-filename --hidden --follow -g '!.git'";
         files = "fd --type f --hidden --follow --exclude.git";
 
         startx = "startx $XDG_CONFIG_HOME/X11/xinitrc";
@@ -82,7 +81,7 @@
         wget = "wget --hsts-file='$XDG_DATA_HOME/wget-hsts'";
         du = "gdu";
 
-        uuid-clip = "uuidgen | tr -d \\n | xclip - sel c";
+        uuid-clip = "uuidgen | tr -d \\n | xclip -sel c";
       };
 
       shellGlobalAliases = {
