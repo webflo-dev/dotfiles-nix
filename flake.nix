@@ -13,13 +13,11 @@
     };
 
     nixos-hardware.url = "github:nixos/nixos-hardware";
-
-    hyprland.url = "github:hyprwm/Hyprland";
     ags.url = "github:Aylur/ags";
   };
 
 
-  outputs = { nixpkgs, home-manager, nixos-hardware, hyprland, ... } @ inputs:
+  outputs = { nixpkgs, home-manager, nixos-hardware, ... } @ inputs:
     let
       defaultHomeManagerModules = [
         home-manager.nixosModules.home-manager

@@ -8,11 +8,13 @@ in
 
   imports = [
     ./hardware-configuration.nix
+    ./bluetooth.nix
     ./fingerprint.nix
     ./hyprland.nix
     ./pipewire.nix
     ./docker.nix
     # ./print.nix
+    ./work.nix
   ];
 
   boot.extraModulePackages = with config.boot.kernelPackages; [
@@ -26,7 +28,8 @@ in
     };
     rtkit.enable = true;
     polkit.enable = true;
-    sudo.wheelNeedsPassword = false;
+    sudo.wheelNeedsPassword = true;
+    sudo.execWheelOnly = true;
   };
 
   networking = {
@@ -52,6 +55,7 @@ in
   environment.systemPackages = with pkgs; [
     inotify-tools
     networkmanagerapplet
+    udiskie
   ];
 
 
@@ -73,10 +77,6 @@ in
   # Touchpad support
   services.xserver.libinput.enable = true;
 
-  # Bluetooth support
-  hardware.bluetooth.enable = true;
-  services.blueman.enable = true;
-
 
   programs.thunar = {
     enable = true;
@@ -88,13 +88,4 @@ in
   services.gvfs.enable = true;
 
   services.gnome.gnome-keyring.enable = true;
-
-  security.pam.loginLimits = [
-    {
-      domain = "florent";
-      type = "soft";
-      item = "nofile";
-      value = "8192";
-    }
-  ];
-  }
+}

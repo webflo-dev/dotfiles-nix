@@ -4,7 +4,6 @@
   home.packages = with pkgs; [
     gtk3
     gtk4
-    papirus-icon-theme
   ];
 
   gtk = {
@@ -23,6 +22,7 @@
     cursorTheme = {
       name = "Adwaita";
       size = 0;
+      package = pkgs.gnome.adwaita-icon-theme;
     };
 
     iconTheme = {

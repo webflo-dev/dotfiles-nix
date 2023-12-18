@@ -40,13 +40,10 @@ in
 
       ### GUI
       font-manager
+      firefox
       microsoft-edge
       spotify
       vscode
-
-      ### Security
-      gnome.gnome-keyring
-      polkit_gnome
     ];
   };
 
@@ -56,6 +53,5 @@ in
   home.sessionPath = [
     "$HOME/.local/bin"
   ];
-
 }
 

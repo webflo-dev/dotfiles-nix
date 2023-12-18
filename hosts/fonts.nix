@@ -10,6 +10,7 @@
         fonts = [ "NerdFontsSymbolsOnly" ];
       })
     ];
+
     fontconfig = {
       enable = true;
       hinting = {
